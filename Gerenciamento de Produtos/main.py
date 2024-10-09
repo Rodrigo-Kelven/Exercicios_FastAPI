@@ -5,10 +5,28 @@ from db import db
 
 app = FastAPI()
 
-
+# Emdpoint para listar todos os produtos
 @app.get("/listar/")
 def listar_produtos():
    return db
+
+
+# Emdpoint para listar os produtos pelo id
+@app.get("/listar/{id}")
+def listar_produto_id(id: int):
+    for produto in db:
+        if produto.id == id:
+            return produto
+        
+
+# Emdpoint para listar os produtos pelo nome
+# perceba que tem que ter a especificacao do que exatamente voce esta procurando!!
+@app.get("/listar/nome/{nome}")
+def listar_produto_nome(nome: str):
+    for produto in db:
+        if produto.nome == nome:
+            return produto
+        
 
 # Request Body
 # isso basicamente é a passagem de valor no corpo da requisicao! nao esta sendo passado na url nem como Query Strings
